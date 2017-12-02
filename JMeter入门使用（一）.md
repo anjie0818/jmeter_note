@@ -121,4 +121,12 @@
 	a.随机数(__Random) b.参数化助手(__CSVRead) c.计数器（__counter） d.唯一数(__UID_) 
 	
 	1.新建一个线程组，在线程组下新建一个Beanshell Sampler
-	2.使用Ctrl+Shift+1，打开函数助手对话框，选择__counter功能,设置参数a:FALSE , b:counter
+	2.使用Ctrl+Shift+1，打开函数助手对话框，选择__counter功能,设置参数a:FALSE , b:counter,点击生成就可以在shell使用了
+	3.计数器分为用户计数器和全局计数器，用户计数器只会统计当前用户的，全局会给每个线程组以及循环次数都计数
+
+###12.实现分布式并发
+> 类似于redis zookeeper的集群配置 
+
+	1.Master在jmeter.properties中添加remote_hosts
+	2.Slave在jmeter.properties红添加server_port
+	3.Slave启动jmeter-server
