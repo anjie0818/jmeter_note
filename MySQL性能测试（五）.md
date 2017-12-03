@@ -81,3 +81,42 @@
 		mysqldumpslow -s c -t 10 slow.log
 	3.得到按照时间排序的前10条含有左连接的SQL
 		mysqldumpslow -s t -t 10 -g "left join" slow.log
+
+###SQL语句性能分析
+* 用法：select 前加上 explain
+
+参数含义：
+
+1.select_type:
+
+	SIMPLE：表示不需要union操作或者不包含子查询的简单SQL
+	PRIMARY：一个需要union操作或包含子查询的SQL
+
+2.table
+	
+	不涉及表则为空，涉及表则为表名
+	<derived N>表示是临时表
+
+3.**type**
+
+	从好到坏：system > const > eq_ref > ref > fulltext > ref_or_null > index_merge > unique_subquery > index_subquery > range > index > ALL
+	1.system:表中只有一行数据或者空表，只能用于myisam和memory表，innodb通常是all或者index
+	2.const:使用了唯一索引或者主键，返回记录一定是1行记录的等值
+	3.fulltext:全文索引，全文索引优先级很高，同时又普通索引，优先全文索引
+	4.unique_subquery:where查询中的in子查询，子查询返回唯一值
+	5.range:索引范围扫描，<,>,null,between,in,like等
+	6.index_merge:使用了两个以上索引，取交集或并集，and或or使用了不同的索引。
+	7.index：索引全表扫描。
+	8.all：全表扫描，最糟糕的SQL。
+
+4.possible_keys
+	
+	可能使用到的索引全部列出来
+
+5.key
+	
+	真正使用到的索引，如通过主键id查询则为PRIMARY
+
+6.rows
+	
+	大概查询了多少行数据，不是精确值。
