@@ -21,14 +21,14 @@
 
 ## Linux性能测试初步认识
 
-###1.测试范围
+### 1.测试范围
 	- CPU
 	- 内存
 	- 网络
 	- 版本
 	- 磁盘
 	
-###2.进程与线程
+### 2.进程与线程
 	
 	进程：系统进行资源分配和调度的一个独立单位，比如说QQ,Chrome等运行的程序。
 	线程：线程是进程的一个实体，基本不拥有系统资源，类似于QQ打开的一个对话框。
@@ -42,7 +42,7 @@
 
 ## Linux监控命令学习
 
-###1.一些命令
+### 1.一些命令
 	
 	1.man 函数手册命令，可以查看所有命令的使用方法
 	
@@ -74,7 +74,7 @@
 	9.strace 跟踪进程启动
 		> strace -ff -F -t -o zk.log ./zkServer.sh start 跟踪zookeeper启动，里面有-1的则是报错的信息
 	
-###2.一些工具
+### 2.一些工具
 	1.nmon 监控信息比较全面，实时捕捉监控，可输出到文件，通过nmon_analyzer图形化结果。
 		a. wget http://sourceforge.net/projects/nmon/files/nmon_linux_14i.tar.gz 下载
 		b. 创建nmon目录，并解压 tar -zxvf nmon_linux_14i.tar.gz
