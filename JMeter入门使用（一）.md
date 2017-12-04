@@ -34,16 +34,16 @@
 - 测试报告
 
 ## Jemeter简单使用
-###1.打开apache-jmeter-3.3\bin目录下的ApacheJMeter.jar
+### 1.打开apache-jmeter-3.3\bin目录下的ApacheJMeter.jar
 
-###2.使用测试计划，右键 -> 添加 -> Threads(Users) -> 线程组
+### 2.使用测试计划，右键 -> 添加 -> Threads(Users) -> 线程组
 	设置线程组的参数：
 
 	- 线程数 （设置同时访问的模拟用户数量,并发数量）
 	- Ramp-Up Period(in seconds) （多少秒钟之内跑完上面的线程数）
 	- 循环次数 （跑多少轮上述的配置）
 
-###3.实现测试的IF逻辑控制（可以通过模拟访问的userid，goodsid等进行不一样的策略）
+### 3.实现测试的IF逻辑控制（可以通过模拟访问的userid，goodsid等进行不一样的策略）
 	
 	1. 步骤：在线程组右键 -> 添加 -> 逻辑控制器 -> 如果（if）控制器
 	2. 在 如果（if）控制器右键 -> 添加 -> sampler -> Http请求
@@ -55,7 +55,7 @@
 
 **提示：如果请求的response data乱码，需要打开bin目录下的jmeter.properties，设置sampleresult.default.encoding=UTF-8就稳了**
 
-###4.实现配置管理
+### 4.实现配置管理
 > 配置元件：提供配置相关信息，如cookie，http头，亦可自行定义变量常量。
 	
 	1.在线程组右键继续添加->配置元件->JDBC Connection Configuration
@@ -68,20 +68,20 @@
 		>如果出现了 Cannot load JDBC driver class 'com.mysql.jdbc.Driver'，
 		>需要下载一个javamysql驱动包（mysql-connector-java-5.1.28.jar），复制到Jmeter目录下的lib/ext
 
-###5.实现请求预处理
+### 5.实现请求预处理
 > 使用前置处理器实现：类似于Java的AOP，在before after之前之后的一种处理。
 
 	1.使用测试计划新增一个线程组，右键 -> 添加 -> Threads(Users) -> 线程组
 	2.线程组右键->前置处理器->用户参数，设置用户参数，随便设置一个，例如 name : zxl
 	3.在 线程组右键 -> 添加 -> sampler -> BeanShell Sampler,通过System.out.println("${name}")便可以打印出刚才设置的name
 
-###6.设置集合点，设置并发
+### 6.设置集合点，设置并发
 > 定时器：设置操作和操作之间的等待时间，就是用户点击操作之间的时间间隔。
 	
 	1.BeanShell Sampler右键添加->定时器->固定定时器，设置延时时间1000
 	2.然后点击run之后，之前的请求会延迟一秒来请求
 
-###7.设置各种请求的发送
+### 7.设置各种请求的发送
 > Sapmler:取样器，性能测试中向服务器发送请求，记录响应信息，记录响应时间的最小单元。
 	
 	1.（Debug用法）在 线程组右键 -> 添加 -> sampler -> Debug Sampler,再次执行run,会多出一个debug结果
@@ -94,7 +94,7 @@
 	START.YMD=20171202
 	TESTSTART.MS=1512185363190
 
-###8.实现Sampler关联
+### 8.实现Sampler关联
 > 后置处理器：对Sampler发出请求后得到的服务器响应进行处理，也差不多是AOP了
 
 	1.添加一个线程组，再添加一个Http请求，设置访问域名 www.whoiszxl.com
@@ -105,26 +105,26 @@
 		>模板：$1$
 	4.然后在BeanShell Sampler,通过System.out.println("${title}")，就能直接打印出正则匹配出来的title值
 
-###9.断言
+### 9.断言
 > 断言，就是检查测试中得到的数据是否符合预期，Java Junit的Assert这种
 
 	1.新建一个线程组，新建一个Http请求，设置响应域名 www.whoiszxl.com，添加查看结果树
 	2.Http请求右键->断言->响应断言，添加规则，随便输入字符，匹配响应结果，如果输入的字符属于响应结果，便请求成功，反之失败。
 **注：断言在实际运用中使用不多**
 
-###10.监控数据可视化
+### 10.监控数据可视化
 > 监听器：用来对测试数据结果进行处理和可视化展示的组件，就像之前的查看结果树。
 	
 	还有一些聚合报告，图形结果等等之类的。
 
-###11.函数助手
+### 11.函数助手
 	a.随机数(__Random) b.参数化助手(__CSVRead) c.计数器（__counter） d.唯一数(__UID_) 
 	
 	1.新建一个线程组，在线程组下新建一个Beanshell Sampler
 	2.使用Ctrl+Shift+1，打开函数助手对话框，选择__counter功能,设置参数a:FALSE , b:counter,点击生成就可以在shell使用了
 	3.计数器分为用户计数器和全局计数器，用户计数器只会统计当前用户的，全局会给每个线程组以及循环次数都计数
 
-###12.实现分布式并发
+### 12.实现分布式并发
 > 类似于redis zookeeper的集群配置 
 
 	1.Master在jmeter.properties中添加remote_hosts
